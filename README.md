@@ -1,5 +1,28 @@
 # Setup Raspberry-pi 3B+
-## [1.Increasing Swap on a Raspberry Pi](https://pimylifeup.com/raspberry-pi-swap-file/)
+## [1. Turn on SSH with Pi Server](https://phoenixnap.com/kb/enable-ssh-raspberry-pi)
+
+#### Enable SSH using the raspi-config too
+```bash
+sudo raspi-config
+```
+
+#### Use systemctl to Enable SSH
+```bash
+sudo systemctl enable ssh
+sudo systemctl start ssh
+```
+
+#### Check Raspberry Pi’s local IP address
+```bash
+hostname -I
+```
+
+#### Connect via SSH
+```bash
+ssh pi@[raspberrypi_ip_address]
+```
+
+## [2. Increasing Swap on a Raspberry Pi](https://pimylifeup.com/raspberry-pi-swap-file/)
 
 #### Stop the operating system from using the current swap file
 ```bash
@@ -31,7 +54,7 @@ sudo dphys-swapfile swapon
 sudo reboot
 ```
 
-## [2.Installing Docker](https://pimylifeup.com/raspberry-pi-docker/)
+## [3. Installing Docker](https://pimylifeup.com/raspberry-pi-docker/)
 
 #### Upgrade all existing packages
 ```bash
@@ -64,7 +87,7 @@ groups
 docker run hello-world
 ```
 
-## [3.Installing Docker compose](https://linuxhint.com/install-docker-compose-raspberry-pi/)
+## [4. Installing Docker compose](https://linuxhint.com/install-docker-compose-raspberry-pi/)
 
 #### Upgrade all existing packages
 ```bash
@@ -93,7 +116,7 @@ sudo apt remove --autoremove docker-compose
 ```
 
 
-## [4.Installing Portainer](https://pimylifeup.com/raspberry-pi-portainer/)
+## [5. Installing Portainer](https://pimylifeup.com/raspberry-pi-portainer/)
 
 #### Upgrade all existing packages
 ```bash
@@ -122,7 +145,7 @@ http://[PIIPADDRESS]:9000
 ```
 
 
-## [5.Installing OpenMediaVault](https://pimylifeup.com/raspberry-pi-openmediavault/)
+## [6. Installing OpenMediaVault](https://pimylifeup.com/raspberry-pi-openmediavault/)
 
 #### Upgrade all existing packages
 ```bash
@@ -151,7 +174,7 @@ http://[PIIPADDRESS]:80
 ```
 
 
-## 6. Set DDNS Google with API Python Script
+## 7. Set DDNS Google with API Python Script
 
 #### Create file setddns.py
 ```bash
