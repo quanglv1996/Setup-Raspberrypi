@@ -249,3 +249,120 @@ exit 0
 ```bash
 sudo reboot
 ```
+
+## [8. Mount a USB Drive](https://thesecmaster.com/how-to-partition-and-format-the-hard-drives-on-raspberry-pi/)
+
+#### Filesystem Types
+##### 1. NTFS: This file system is developed by Microsoft in the early 90s. All new versions of Windows operating systems will support this file system. Theoretically, NTFS can support hard drives up to just under 16 EB. The individual file size is capped at just under 256 TB, at least in Windows 8 and Windows 10, as well as in some newer Windows Server versions. When it comes to supporting, this file system is universally supported. Although it’s developed by Microsoft, it is supported by most Linux distributions and Mac.
+##### 2. EXT4: This file system is developed based on the older Minix filesystem, A file system being used by Linux systems for ages. The higher maximum volume size it supports is 1 EB. That’s, again, a mathematical number. I know all these numbers don’t bother you like many of us. After all, who is going to use such a gigantic drive at home with Raspberry Pi!
+
+#### List out the connected drives and use ‘print all’ to read the drive information
+```bash
+sudo parted
+(parted) print all
+```
+
+#### Select the drive to partition
+Select the drive to format and create new partitions. Type the ‘select’ command with the drive path.
+```bash
+(parted) select /dev/sda
+```
+
+#### Create a fresh GPT partition table
+Create a fresh GPT partition table by typing ‘mklabel gpt’ command. You will get a warning to wipe out all your drive. Type ‘yes’ to continue. Please bear in mind, that it’s just a partition table, not the partitions.
+```bash
+(parted) mklabel gpt
+```
+
+#### Type ‘print’ to make sure the new GPT partition is created
+```bash
+(parted) print
+```
+
+#### Create new partitions
+Create three partitions on this drive using ‘mkpart’ command: data-nas, and data-all.
+Type ‘mkpart’ command to create a new partition. It asks four simple questions to create a partition. Your partition will be created upon supplying the answers. Just pay attention to the commands we used to create three partitions. You can create partitions in a single line command as well, as we show in the below screenshot.
+```bash
+(parted) mkpart data-nas ext4 0% 50%
+(parted) mkpart data-all ext4 50% 100%
+```
+
+#### Exit from parted
+```bash
+(parted) q
+```
+
+#### Format the partitions
+You can’t use the partitions until you format them. Let’s use mkfs commands to format the partitions. Different versions of mkfs commends are there to format NTFS and EXT4 file systems. In this command -L specifies the label of the drive, and -Q specifies quick format, which takes the partition name as a parameter. Note: EXT4 doesn’t take -Q as it doesn’t support the quick format.
+```bash
+sudo mkfs.ext4 -L data-nas /dev/sda1
+sudo mkfs.ext4 -L data-all /dev/sda2
+```
+
+#### Reboot the Raspberry Pi
+```bash
+sudo reboot
+```
+
+#### Remount these partitions under /mnt
+Change the directory to /mnt.
+```bash
+cd /mnt
+```
+Create two directories named ‘data-nas’ and ‘data-all’ under /mnt.
+```bash
+sudo mkdir data-nas
+sudo mkdir data-all
+```
+Let’s now give our pi user ownership of this folder by running the command below.
+```bash
+sudo chown -R pi:pi /mnt/data-nas
+sudo chown -R pi:pi /mnt/data-all
+```
+Mount the partitions using the mount command. Note: This is just a temp mount. It is not going to work after reboot.
+```bash
+sudo mount /dev/sda1 /mnt/data-nas
+sudo mount /dev/sda2 /mnt/data-all
+```
+Do you remember the fstab? It’s a file system table. This is where you can mount a partition forever. Open the /etc/fstab file and see how it looks. You can only see the SD card at this time.
+```bash
+cat /etc/fstab
+```
+
+#### Take the PARTUUID value of the two partitions
+You need to add those two partitions to /etc/fstab to mount permanently. Before that, make a note of PARTUUID value of the two partitions.
+```bash
+sudo blkid
+```
+
+#### Create a permanent mount
+Use your choice of a text editor to edit and add the partition information in the /etc/fstab. You can add the two lines representing each line for a partition. Write this information separated by TAB.
+```bash
+sudo blkid
+```
+
+```bash
+PARTUUID=VALUE
+Mount path
+File System
+default or default, notime: The word ‘notime’ just tells us to keep track of the access time along with created and modified time.
+0
+0
+```
+
+#### Reboot the Raspberry Pi
+```bash
+sudo reboot
+```
+
+## [9. Generating SSH Keys on Linux based systems](https://pimylifeup.com/raspberry-pi-ssh-keys/)
+
+#### Generate SSH Keys
+```bash
+ssh-keygen
+```
+
+#### View ssh public key
+```bash
+cat ~/.ssh/id_rsa.pub
+```
