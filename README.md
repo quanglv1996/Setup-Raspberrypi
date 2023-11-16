@@ -253,8 +253,8 @@ sudo reboot
 ## [8. Mount a USB Drive](https://thesecmaster.com/how-to-partition-and-format-the-hard-drives-on-raspberry-pi/)
 
 #### Filesystem Types
-##### 1. NTFS: This file system is developed by Microsoft in the early 90s. All new versions of Windows operating systems will support this file system. Theoretically, NTFS can support hard drives up to just under 16 EB. The individual file size is capped at just under 256 TB, at least in Windows 8 and Windows 10, as well as in some newer Windows Server versions. When it comes to supporting, this file system is universally supported. Although it’s developed by Microsoft, it is supported by most Linux distributions and Mac.
-##### 2. EXT4: This file system is developed based on the older Minix filesystem, A file system being used by Linux systems for ages. The higher maximum volume size it supports is 1 EB. That’s, again, a mathematical number. I know all these numbers don’t bother you like many of us. After all, who is going to use such a gigantic drive at home with Raspberry Pi!
+1. NTFS: This file system is developed by Microsoft in the early 90s. All new versions of Windows operating systems will support this file system. Theoretically, NTFS can support hard drives up to just under 16 EB. The individual file size is capped at just under 256 TB, at least in Windows 8 and Windows 10, as well as in some newer Windows Server versions. When it comes to supporting, this file system is universally supported. Although it’s developed by Microsoft, it is supported by most Linux distributions and Mac.
+2. EXT4: This file system is developed based on the older Minix filesystem, A file system being used by Linux systems for ages. The higher maximum volume size it supports is 1 EB. That’s, again, a mathematical number. I know all these numbers don’t bother you like many of us. After all, who is going to use such a gigantic drive at home with Raspberry Pi!
 
 #### List out the connected drives and use ‘print all’ to read the drive information
 ```bash
