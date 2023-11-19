@@ -350,6 +350,16 @@ default or default, notime: The word ‘notime’ just tells us to keep track of
 0
 ```
 
+```bash
+sudo nano /etc/fstab
+```
+
+Add the partition information
+```bash
+PARTUUID=8c8816b4-13d5-4345-8410-85263b3c5891	/mnt/data-gitea	ext4	defaults,noatime	0	0
+PARTUUID=6d56b35f-d771-4be0-9ae2-d4faf98e2326	/mnt/data-all	ext4	defaults,noatime	0	0
+```
+
 #### Reboot the Raspberry Pi
 ```bash
 sudo reboot
